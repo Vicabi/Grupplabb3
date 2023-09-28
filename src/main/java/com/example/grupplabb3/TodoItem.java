@@ -24,6 +24,11 @@ public class TodoItem {
 
     public TodoItem() {}
 
+    public TodoItem(String description, boolean completed) {
+        this.description = description;
+        this.completed = completed;
+    }
+
     public Long getId() {
         return id;
     }
