@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class TodoControllerUnitTest {
+class TodoControllerUnitTest {
 
   @InjectMocks
   private TodoController todoController;
@@ -27,8 +28,15 @@ public class TodoControllerUnitTest {
   private TodoRepository todoRepository;
 
   @Test
+  @DisplayName("Should load context and assert that dependencies are not null")
+  void contextLoads() {
+    Assertions.assertNotNull(todoRepository);
+    Assertions.assertNotNull(todoController);
+  }
+
+  @Test
   @DisplayName("Should return empty array if no todos found")
-  public void testGetEmptyTodoList() {
+  void testGetEmptyTodoList() {
     List<TodoItem> emptyTodoList = new ArrayList<>();
     Mockito.when(todoRepository.findAll()).thenReturn(emptyTodoList);
     List<TodoItem> result = todoController.getAllTodoItems();
@@ -38,7 +46,7 @@ public class TodoControllerUnitTest {
 
   @Test
   @DisplayName("Should return array with one todo if one todo found")
-  public void testGetTodosWithOneAdded() {
+  void testGetTodosWithOneAdded() {
     List<TodoItem> todoList = new ArrayList<>();
     TodoItem item = new TodoItem();
     item.setDescription("Item 1");
@@ -52,7 +60,7 @@ public class TodoControllerUnitTest {
 
   @Test
   @DisplayName("Should create new todo")
-  public void testCreateNewTodo() {
+  void testCreateNewTodo() {
     TodoItem item = new TodoItem();
     item.setDescription("Item 1");
     item.setCompleted(false);

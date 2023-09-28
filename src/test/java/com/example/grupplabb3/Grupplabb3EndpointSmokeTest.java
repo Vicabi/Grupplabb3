@@ -1,37 +1,56 @@
 package com.example.grupplabb3;
 
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import io.restassured.RestAssured;
+import org.springframework.http.HttpStatus;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.equalTo;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class Grupplabb3EndpointSmokeTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class Grupplabb3EndpointSmokeTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @LocalServerPort
+    private int port;
 
-    @Test
-    public void todosEndpointReturnsOk() throws Exception {
-        mockMvc.perform(get("/todos")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+    @BeforeEach
+    public void setUp() {
+        RestAssured.port = port;
     }
 
     @Test
-    public void createTodoEndpointAcceptsPost() throws Exception {
-        String mockTodoJson = "{\"description\":\"Item 1\"}";
-        mockMvc.perform(post("/todos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mockTodoJson))
-                .andExpect(status().isOk());
+    @DisplayName("Should access /todos endpoint and return 200 OK")
+    void todosEndpointReturnsOk() {
+        RestAssured
+            .given()
+            .when()
+                .get("/todos")
+            .then()
+                .statusCode(HttpStatus.OK.value())
+                .contentType(ContentType.JSON);
+    }
+
+    @Test
+    @DisplayName("Should access /todos endpoint and return JSON array")
+    void createTodoEndpointAcceptsPost() {
+
+        // Skapar ett nytt item att testa mot description.
+        TodoItem item = new TodoItem("Item 1");
+
+        RestAssured
+            .given()
+                .contentType(ContentType.JSON)
+                .body(item)
+            .when()
+                .post("/todos")
+            .then()
+                .statusCode(HttpStatus.OK.value())
+                .contentType(ContentType.JSON)
+                .body("description", equalTo("Item 1"));
     }
 }
 

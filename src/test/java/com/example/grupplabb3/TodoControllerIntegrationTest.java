@@ -1,8 +1,6 @@
 package com.example.grupplabb3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.Assert;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,7 +32,15 @@ public class TodoControllerIntegrationTest {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  public void testGetTodos() throws Exception {
+  @DisplayName("Should load context and assert that dependencies are not null")
+  void contextLoads() {
+    Assertions.assertNotNull(todoRepository);
+    Assertions.assertNotNull(mockMvc);
+  }
+
+
+  @Test
+  void testGetTodos() throws Exception {
 
     TodoItem temp = todoRepository.save(new TodoItem("Item 1"));
 
@@ -52,7 +59,7 @@ public class TodoControllerIntegrationTest {
   }
 
   @Test
-  public void testCreateNewTodo() throws Exception {
+  void testCreateNewTodo() throws Exception {
 
     // Serialize a TodoItem object to JSON
     String jsonTodo = objectMapper.writeValueAsString(new TodoItem("Item 2"));
