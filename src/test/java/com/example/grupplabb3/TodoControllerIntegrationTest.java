@@ -35,7 +35,7 @@ public class TodoControllerIntegrationTest {
   @Test
   public void testGetTodos() throws Exception {
 
-    TodoItem temp = todoRepository.save(new TodoItem("Item 1"));
+    TodoItem temp = todoRepository.save(new TodoItem(2L, "Item 1", false));
 
     // Perform a GET request to /todos. Expect a 200 OK response and a JSON array
     mockMvc.perform(get("/todos")
