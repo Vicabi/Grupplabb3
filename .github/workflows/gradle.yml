@@ -25,7 +25,9 @@ jobs:
         distribution: 'temurin'
         
     - name: Build with Gradle
-      run: gradle --batch-mode -DskipTests package
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+      with:
+        arguments: build
       
     - name: Test with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
