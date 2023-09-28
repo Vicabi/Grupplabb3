@@ -5,11 +5,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TodoRepository extends JpaRepository<TodoItem, Long> {
-
-    // Get by id
-
-    // Get by completed
-
-    // Get all
-
 }

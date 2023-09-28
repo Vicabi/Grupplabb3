@@ -2,6 +2,8 @@ package com.example.grupplabb3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,12 +14,13 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    // Get list of all entries
-
-    @GetMapping("/items")
+    @GetMapping("/todos")
     public List<TodoItem> getAllTodoItems() {
         return todoRepository.findAll();
     }
 
-    // Post new entry
+    @PostMapping("/todos")
+    public TodoItem createNewTodoItem(@RequestBody TodoItem item) {
+        return todoRepository.save(item);
+    }
 }

@@ -22,7 +22,13 @@ public class TodoItem {
         this.completed = completed;
     }
 
-    public TodoItem() {}
+    public TodoItem(String description) {
+        this.description = description;
+        this.completed = false;
+    }
+
+    public TodoItem() {
+    }
 
     public Long getId() {
         return id;
@@ -51,18 +57,21 @@ public class TodoItem {
     @Override
     public String toString() {
         return "TodoItem{" +
-            "id=" + id +
-            ", description='" + description + '\'' +
-            ", completed=" + completed +
-            '}';
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", completed=" + completed +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         TodoItem todoItem = (TodoItem) o;
-        return completed == todoItem.completed && Objects.equals(id, todoItem.id) && Objects.equals(description, todoItem.description);
+        return completed == todoItem.completed && Objects.equals(id, todoItem.id)
+                && Objects.equals(description, todoItem.description);
     }
 
     @Override
