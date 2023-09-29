@@ -57,6 +57,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         run: |
+          ./gradlew build
           docker build . --tag ghcr.io/vicabi/grupplabb3:development
           docker run ghcr.io/vicabi/grupplabb3:development
           docker push ghcr.io/vicabi/grupplabb3:development
