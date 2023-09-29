@@ -27,7 +27,7 @@ jobs:
     - name: Test only one class
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
       with:
-        arguments: test --tests TodoControllerUnitTest
+        arguments: test --tests com.example.grupplabb3.TodoControllerUnitTest
         
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
