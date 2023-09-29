@@ -48,9 +48,9 @@ public class TodoControllerIntegrationTest {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())
-        .andExpect(jsonPath("$[0].id").value(temp.getId()))
-        .andExpect(jsonPath("$[0].description").value("Item 1"))
-        .andExpect(jsonPath("$[0].completed").value(false));
+        .andExpect(jsonPath("$[-1].id").value(temp.getId()))
+        .andExpect(jsonPath("$[-1].description").value("Item 1"))
+        .andExpect(jsonPath("$[-1].completed").value(false));
 
     // Clean up
     todoRepository.deleteById(temp.getId());
