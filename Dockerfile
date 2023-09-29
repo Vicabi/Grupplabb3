@@ -1,5 +1,5 @@
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17
 WORKDIR /app
-COPY ./build/libs/grupplabb3-0.0.1-SNAPSHOT.jar /app/grupplabb3.jar
+COPY ./build/libs/*.jar my-app.jar
 ENTRYPOINT ["java", "-jar", "my-app.jar"]
 EXPOSE 8080
