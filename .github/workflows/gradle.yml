@@ -24,14 +24,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Test with Gradle
+    - name: Test only Unit test
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
       with:
-        arguments: test
+        arguments: -b TodoControllerUnitTest.java
         
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
       with:
         arguments: build
       
-
+    - name: Test with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+      with:
+        arguments: test
