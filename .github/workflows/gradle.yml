@@ -61,3 +61,16 @@ jobs:
           ./gradlew build
           docker build . --tag ghcr.io/vicabi/grupplabb3:development
           docker push ghcr.io/vicabi/grupplabb3:development
+
+          # Save image name to env IMAGE_NAME
+          echo "::set-env name=IMAGE_NAME::ghcr.io/vicabi/grupplabb3:development"
+
+  # Create deployment
+  deploy:
+    runs-on: ubuntu:latest
+    needs: push-image
+
+    steps:
+      - name: Simulate deployment
+        run: |
+          echo "Simulated deployment of image: $IMAGE_NAME"
