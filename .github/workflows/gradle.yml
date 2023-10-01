@@ -62,8 +62,8 @@ jobs:
           docker build . --tag ghcr.io/vicabi/grupplabb3:development
           docker push ghcr.io/vicabi/grupplabb3:development
 
-          # Save image name to env IMAGE_NAME
-          echo "::set-env name=IMAGE_NAME::ghcr.io/vicabi/grupplabb3:development"
+          # Save image name to output IMAGE_NAME
+          echo "::set-output name=IMAGE_NAME::ghcr.io/vicabi/grupplabb3:development"
 
   # Create deployment
   deploy:
@@ -73,4 +73,4 @@ jobs:
     steps:
       - name: Simulate deployment
         run: |
-          echo "Simulated deployment of image: $IMAGE_NAME"
+          echo "Simulated deployment of image: ${{ needs.push-image.outputs.IMAGE_NAME }}"
